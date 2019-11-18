@@ -300,5 +300,39 @@ public String getWordBetweenJustNextOne(String onStr, String str1, String str2){
      return  onStr.substring(onStr.indexOf(str1) + str1.length(), onStr.indexOf(str2, onStr.indexOf(str1)));
 }
 
+public String asciiConvert(String toConvert){
+    String toReturn = toConvert;
+    toReturn= toReturn.replaceAll("&#126;", "~");
+    toReturn= toReturn.replaceAll("&#146;", "’");
+    toReturn= toReturn.replaceAll("&#231;", "ç");
+    toReturn= toReturn.replaceAll("&#232;", "è");
+    toReturn= toReturn.replaceAll("&#233;", "é");
+    toReturn= toReturn.replaceAll("&#234;", "ê");
+    toReturn= toReturn.replaceAll("&#224;", "à");
+    toReturn= toReturn.replaceAll("&#225;", "á");
+    toReturn= toReturn.replaceAll("&#244;", "ô");
+    toReturn= toReturn.replaceAll("&#249;", "ù");
+    toReturn= toReturn.replaceAll("&#251;", "û");
+    toReturn= toReturn.replaceAll("&#039;", "'");
+    toReturn= toReturn.replaceAll("&#044;", ",");
+    toReturn= toReturn.replaceAll("&#243;", "ó");
+    toReturn= toReturn.replaceAll("&#247;", "÷");
+    toReturn= toReturn.replaceAll("&#245;", "õ");
+    toReturn= toReturn.replaceAll("&#238", "î");
+    toReturn= toReturn.replaceAll("&#235;", "ë");
+    toReturn= toReturn.replaceAll("&#237;", "í");
+    toReturn= toReturn.replaceAll("&#236;", "ì");
+    toReturn= toReturn.replaceAll("&#239;", "ï");
+    toReturn= toReturn.replaceAll("&#230;", "æ");
+    toReturn= toReturn.replaceAll("&#156;", "œ");
+    toReturn= toReturn.replaceAll("&amp;", "&");
+    toReturn= toReturn.replaceAll("&amp", "&");
+    toReturn= toReturn.replaceAll("&#8211;","–");
+    toReturn= toReturn.replaceAll("&bull;", "•");
+        
+    return toReturn;
+}
+
+
 
 }

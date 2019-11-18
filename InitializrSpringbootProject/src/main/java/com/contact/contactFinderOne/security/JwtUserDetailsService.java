@@ -59,7 +59,9 @@ public class JwtUserDetailsService implements UserDetailsService {
                 
                  String text="Bonjour,\nContacteFinder vous souhaite la bienvenu merci de cliquer sur le lien au dessous pour activer votre compte:\n"
                            + "lien: http://localhost:8080/activation/"+user.getCodeActivation()+"\n\n"
-                           + "Bien Cordialement,\nContact Finder.";  
+                       //  + "lien: http://contactfinderone.cfapps.io/activation/"+user.getCodeActivation()+"\n\n"
+ 
+                         + "Bien Cordialement,\nContact Finder.";  
                 try {
                      new Thread(new Runnable() {
                          @Override
@@ -71,11 +73,48 @@ public class JwtUserDetailsService implements UserDetailsService {
                         e.printStackTrace();
                     }
                 
-                
+            return userDao.save(newUser);
+	}
+        
+        
+        public DAOUser updatePsw(UserDTO user, int type) throws IOException {
+		DAOUser newUser = userDao.findById(user.getId());
+		
+                String psw = user.getPassword();
+		newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
+    
+                 Email em = new Email();
+ 
+                try {
+                     new Thread(new Runnable() {
+                         @Override
+                         public void run() {
+                             String text="";
+                             String titre= "Changement";
+                                    text="Bonjour "+user.getId()+",\nci-dessous votre nouveau mot de passe:\n"
+                                            + psw+"\n"
+                                            +"merci de le modifier une fois connecter a votre compte.\n"
+                                            + "Bien Cordialement,\nContact Finder."; 
+                                if(type==1){
+                                    titre = "Nouveau";
+                                    text="Bonjour "+user.getId()+",\nNous confirmant le changement du mot de passe:\n"
+                                            + psw+"\n"
+                                            +"ContactFinder vous remercie pour votre confiance.\n"
+                                            + "Bien Cordialement,\nContact Finder."; 
+                                      }
+                             
+                                em.sendMail(user.getId(), titre+" mot de passe ContactFinder", text);                         
+                         }
+                             }).start();
+                        
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 
             return userDao.save(newUser);
 	}
         
+ 
         public boolean userExist(UserDTO user){
             return userDao.findById(user.getId())!= null;
         }
